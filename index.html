@@ -18,12 +18,14 @@
       <button onclick="app.controllers.vendController.addMoney('dime')">$0.10</button>
       <button onclick="app.controllers.vendController.addMoney('nickel')">$0.05</button>
     </div>
+    <button onclick="app.controllers.vendController.giveChange()">Give Change</button>
     <div class="change">
       <p>Change: $
         <span id="total">0.00</span>
       </p>
     </div>
   </main>
+  <img src="" id="vended-item">
 
   <script src="main.js" type="module">
   </script>

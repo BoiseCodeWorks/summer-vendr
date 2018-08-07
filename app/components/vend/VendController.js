@@ -16,7 +16,7 @@ function drawItems() {
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
     template += `
-            <div class="food-item" onclick>
+            <div class="food-item" onclick="app.controllers.vendController.vend(${i})">
               <img src="${item.img}" alt = "">
               <h3> ${item.price}</h3> 
             </div>
@@ -25,8 +25,8 @@ function drawItems() {
   document.getElementById('food').innerHTML = template
 }
 
-function drawVend() {
-
+function drawVend(img) {
+  document.getElementById('vended-item').setAttribute('src', img)
 }
 
 //PUBLIC PARTS
@@ -38,16 +38,26 @@ class VendController {
 
   }
 
+  giveChange() {
+    var change = vendService.giveChange()
+    drawTotal("0.00")
+    alert(change)
 
+  }
 
   //used to send money to service
   addMoney(cur) {
-    console.log('controller: ', cur)
     let total = vendService.addMoney(cur)
-    console.log('returned to controller: ', total)
     drawTotal(total)
   }
 
+  vend(foodIndex) {
+    let result = vendService.vend(foodIndex)
+    if (result) {
+      drawTotal(result.total)
+      drawVend(result.img)
+    }
+  }
 
 }
 

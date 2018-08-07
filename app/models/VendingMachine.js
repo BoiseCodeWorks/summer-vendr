@@ -26,20 +26,30 @@ class VendingMachine {
   }
 
   addMoney(coin) {
-    //validate coin
-    //  increase total 
-    //return total
+    if (this.acceptableCurrency[coin]) {
+      this.transactionTotal += this.acceptableCurrency[coin]
+      return this.transactionTotal.toFixed(2)
+    }
+    return 'invalid coin'
   }
-  vend(foodId) {
-    //find item
-    //if transactionTotal >= item.price && item.quantity > 0
-    //  item.quantity --
-    //  transactionTotal -= item.price
-    //  machineTotal += item.price
-    //return item.img
+
+
+  vend(foodIndex) { //foodId
+    let item = this.foodItems[foodIndex] //let item = this.foodItems.find(i => i.id == foodId)
+    if (this.transactionTotal >= item.price && item.quantity > 0) {
+      item.quantity -= 1
+      this.transactionTotal -= item.price
+      this.machineTotal += item.price
+      return {
+        img: item.img,
+        total: this.transactionTotal.toFixed(2)
+      }
+    }
   }
   giveChange() {
-    //transactionTotal = 0
+    let change = this.transactionTotal
+    this.transactionTotal = 0
+    return change
   }
 
   getItems() {
